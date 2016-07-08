@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create Account: Choose Account Type</title>
+</head>
+
+<body>
+
+<h1>Choose Account Type</h1>
+
+<form method="POST">
+    <table>
+        <tr>
+            <th>Type</th>
+            <td>
+                <select name="type">
+                    <option th:each="type: ${T(io.pivotal.AccountType).values()}"
+                            th:value="${type}"
+                            th:text="${#strings.toLowerCase(type)}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="submit" name="_eventId_submit" value="Continue"/></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+
+</html>
