@@ -1,0 +1,10 @@
+A very simple Spring Web Flow and Spring Web project.
+
+The eventual goals are to demonstrate how to:
+
+. Set up a Web Flow project using minimal Java configuration
+. Integrate Web Flow with Web (eg delegating to it for view rendering)
+. Write various kinds of tests against Web Flow applications
+. Deploy a highly-available Web Flow application to Cloud Foundry
+
+Features of Web Flow will only be used so far as necessary to demonstrate their use with Web or Cloud Foundry.
