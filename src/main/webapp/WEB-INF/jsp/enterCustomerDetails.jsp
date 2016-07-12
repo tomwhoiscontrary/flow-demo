@@ -1,18 +1,21 @@
 <!DOCTYPE html>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Account: Overdraft</title>
+    <title>Create Account: Customer Details</title>
 </head>
 
 <body>
 
-<h1>Overdraft</h1>
+<h1>Customer Details</h1>
 
 <form method="POST">
     <table>
         <tr>
-            <th>Amount</th>
-            <td><input type="number" name="overdraft"/></td>
+            <th>Name</th>
+            <td><input name="owner"/></td>
         </tr>
         <tr>
             <th></th>

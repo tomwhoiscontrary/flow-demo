@@ -22,11 +22,18 @@ repositories {
     jcenter()
 }
 
+configurations {
+    providedRuntime
+}
+
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
     compile group: 'org.springframework.webflow', name: 'spring-webflow', version: '2.4.2.RELEASE'
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api'
+
+    providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
+    providedRuntime group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper'
+    providedRuntime group: 'javax.servlet', name: 'jstl'
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }

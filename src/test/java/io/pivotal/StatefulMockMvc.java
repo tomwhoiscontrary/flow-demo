@@ -60,17 +60,17 @@ public class StatefulMockMvc {
     }
 
     /**
-     * Perform a request, using the current session, follow any redirects, and return the response.
+     * Perform a request, using the current session, follow any redirects, and return the result.
      *
      * @see MockMvc#perform(RequestBuilder)
      */
-    public MockHttpServletResponse perform(MockHttpServletRequestBuilder requestBuilder) throws Exception {
+    public MvcResult perform(MockHttpServletRequestBuilder requestBuilder) throws Exception {
         MvcResult result = mockMvc.perform(requestBuilder.session(session)).andReturn();
         MockHttpServletResponse response = result.getResponse();
         if (isRedirect(response.getStatus())) {
             return perform(get(response.getRedirectedUrl()));
         } else {
-            return result.getResponse();
+            return result;
         }
     }
 

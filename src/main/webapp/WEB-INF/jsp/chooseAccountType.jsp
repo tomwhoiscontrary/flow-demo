@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html lang="en">
 <head>
     <title>Create Account: Choose Account Type</title>
@@ -14,9 +17,9 @@
             <th>Type</th>
             <td>
                 <select name="type">
-                    <option th:each="type: ${T(io.pivotal.AccountType).values()}"
-                            th:value="${type}"
-                            th:text="${#strings.toLowerCase(type)}"></option>
+                    <c:forEach var="type" items="<%= io.pivotal.AccountType.values() %>">
+                        <option value="${type}">${type.name().toLowerCase()}</option>
+                    </c:forEach>
                 </select>
             </td>
         </tr>
