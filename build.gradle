@@ -1,37 +1,84 @@
 buildscript {
-    ext {
-        springBootVersion = '1.3.6.RELEASE'
-    }
     repositories {
         jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.3.6.RELEASE'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'spring-boot'
+apply plugin: 'maven'
 
+group = 'io.pivotal'
 version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 repositories {
     jcenter()
 }
 
-configurations {
-    providedRuntime
-}
-
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
-    // compile group: 'org.springframework.session', name: 'spring-session'
     compile group: 'org.springframework.webflow', name: 'spring-webflow', version: '2.4.2.RELEASE'
-
-    // providedRuntime
-    runtime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api'
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+}
+
+task pom(description: 'Creates a POM file which can be used to build the project using Maven') << {
+    def sourceCompatibility = sourceCompatibility
+    def targetCompatibility = targetCompatibility
+    pom {
+        project {
+            packaging 'war'
+
+            parent {
+                groupId 'org.springframework.boot'
+                artifactId 'spring-boot-starter-parent'
+                version dependencyManagement.importedProperties['spring-boot.version']
+            }
+        }
+        /*
+        // ideally we would do something like this, but 'build' doesn't work
+
+        project {
+            build {
+                plugins {
+                    plugin {
+                        groupId 'org.apache.maven.plugins'
+                        artifactId 'maven-compiler-plugin'
+                        configuration {
+                            source sourceCompatibility
+                            target targetCompatibility
+                        }
+                    }
+                }
+            }
+        }
+        */
+        withXml {
+            asNode().appendNode('build').with {
+                appendNode('plugins', directory).with {
+                    appendNode('plugin', directory).with {
+                        appendNode('groupId', 'org.apache.maven.plugins')
+                        appendNode('artifactId', 'maven-compiler-plugin')
+                        appendNode('configuration').with {
+                            appendNode('source', sourceCompatibility)
+                            appendNode('target', targetCompatibility)
+                        }
+                    }
+                    appendNode('plugin', directory).with {
+                        appendNode('groupId', 'org.springframework.boot')
+                        appendNode('artifactId', 'spring-boot-maven-plugin')
+                    }
+                }
+            }
+        }
+    }.writeTo("$projectDir/pom.xml")
 }
