@@ -20,12 +20,12 @@
         <th>Overdraft Limit</th>
     </tr>
     <c:forEach var="account" items="${accounts}">
-        <tr>
-            <td>${account.sortCode}</td>
-            <td>${account.number}</td>
-            <td>${account.type.name().toLowerCase()}</td>
-            <td>${account.owner}</td>
-            <td>${account.overdraft}</td>
+        <tr data-qa="account-${account.owner}">
+            <td data-qa="sortCode">${account.sortCode}</td>
+            <td data-qa="number">${account.number}</td>
+            <td data-qa="type">${account.type.name().toLowerCase()}</td>
+            <td data-qa="owner">${account.owner}</td>
+            <td data-qa="overdraft">${account.overdraft}</td>
         </tr>
     </c:forEach>
 </table>

@@ -36,6 +36,10 @@ dependencies {
     providedRuntime group: 'javax.servlet', name: 'jstl'
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-api', version: '2.53.1'
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '2.53.1'
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-htmlunit-driver', version: '2.52.0'
 }
 
 task pom(description: 'Creates a POM file which can be used to build the project using Maven') << {
